@@ -14,17 +14,17 @@
     </head>
     <body>
         <h1>Shopping List</h1>
-        <p>Hello, ${user} <a href="ShoppingList?logout"action="logout"> Logout </a></p>
+        <p>Hello, ${user} <a href="ShoppingList?logout"> Logout </a></p>
         
         <h2>List</h2>
         <form method ="post" action="ShoppingList">
             Add item:<input type="text" name="item"> 
-            <input type="submit" value="Add" action="add"><br>
+            <input type="submit" value="Add" name="add"><br>
             
-            <c:forEach items="${itemList}" var ="item">
-                    <input type="radio" name="item" value="${item}"><br>
+            <c:forEach items="${items}" var ="item">
+                <input type="radio" name ="itemName" value="${item}">${item}<br>
             </c:forEach>
-            <input type="submit" value="Delete" action="delete">
+            <input type="submit" value="Delete">
         </form>
         
     </body>

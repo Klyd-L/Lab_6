@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
  * @author klydm
  */
 public class ShoppingListServlet extends HttpServlet {
-
+    
+    ArrayList<String> items = new ArrayList<>();
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
@@ -26,8 +28,14 @@ public class ShoppingListServlet extends HttpServlet {
             throws ServletException, IOException 
     {
         HttpSession session = request.getSession();
-        ArrayList<String> items = (ArrayList<String>)session.getAttribute("item");
         
+        String add = request.getParameter("add");
+        if(add != null)
+        {
+            String item = request.getParameter("item");
+            items.add(item);
+            request.setAttribute("items", items);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
                 .forward(request, response);
     }
