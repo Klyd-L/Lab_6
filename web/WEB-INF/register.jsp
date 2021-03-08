@@ -13,9 +13,10 @@
     </head>
     <body>
         <h1>Shopping List</h1>
-        <form method ="post" action="ShoppingList">
+        <form method ="get" action="ShoppingList">
             Username:<input type="text" name="user"> 
-            <input type="submit" value="Register name" action="register">
+            <input type="submit" value="Register name">
+            <input type="hidden" name="action" value="register">
         </form>
     </body>
 </html>

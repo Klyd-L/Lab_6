@@ -22,7 +22,27 @@ public class ShoppingListServlet extends HttpServlet {
     {
         HttpSession session = request.getSession();
         String user = request.getParameter("user");
-        session.setAttribute("user", user);
+        String logout = request.getParameter("logout");
+        if(user == null || user.equals(""))
+        {
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp")
+                .forward(request, response);
+        }
+        
+        if(user != null)
+        {
+            session.setAttribute("user", user);
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
+                .forward(request, response); 
+        }
+        
+        if(logout != null)
+        {
+            items.clear();
+            session.invalidate();
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp")
+                .forward(request, response);
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/register.jsp")
                 .forward(request, response);
     }
@@ -32,26 +52,26 @@ public class ShoppingListServlet extends HttpServlet {
     {
         HttpSession session = request.getSession();
         
-        
-        String user = request.getParameter("user");
-        session.setAttribute("user", user);
-        
-        String add = request.getParameter("add");
-        String delete = request.getParameter("delete");
+        String action = request.getParameter("action");
         String itemName = request.getParameter("itemName");
-        if(add != null)
+        if(action.equals("register"))
+        {
+            String user =(String)session.getAttribute("user");
+            session.setAttribute("user", user);
+        }
+        if(action.equals("add"))
         {
             String item = request.getParameter("item");
             items.add(item);
-            request.setAttribute("items", items);
+            session.setAttribute("items", items);
         }
-        if(delete != null)
+        if(action.equals("delete"))
         {
             if(itemName != null)
             {
                items.remove(itemName);
             }
-            request.setAttribute("items", items);
+            session.setAttribute("items", items);
         }
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp")
                 .forward(request, response);

@@ -19,12 +19,15 @@
         <h2>List</h2>
         <form method ="post" action="ShoppingList">
             Add item:<input type="text" name="item"> 
-            <input type="submit" value="Add" name="add"><br>
-            
+            <input type="submit" value="Add"><br>
+            <input type="hidden" name="action" value="add">
+        </form>
+        <form method ="post" action="ShoppingList">  
             <c:forEach items="${items}" var ="item">
                 <input type="radio" name ="itemName" value="${item}">${item}<br>
-            </c:forEach>
-            <input type="submit" value="Delete" name="delete">
+            </c:forEach>       
+            <input type="submit" value="Delete">
+            <input type="hidden" name="action" value="delete">
         </form>
         
     </body>
